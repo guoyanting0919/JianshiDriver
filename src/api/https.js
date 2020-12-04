@@ -34,14 +34,14 @@ const errorHandle = (status, msg) => {
 
 // 設定 baseURL
 let instance = axios.create({
-  baseURL: "http://tccdonkeyapi.1966.org.tw/api/",
+  baseURL: process.env.VUE_APP_BASE_API,
 });
 
 // request 攔截
 instance.interceptors.request.use(
   (config) => {
-    const token = store.state.token;
-    token && (config.headers.Authorization = `Bearer ${token}`);
+    const token = window.localStorage.getItem("driverToken");
+    token && (config.headers["X-token"] = `${token}`);
     return config;
   },
   (error) => {
