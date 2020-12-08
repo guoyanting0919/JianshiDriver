@@ -106,9 +106,7 @@ export default {
         console.log(res);
         vm.list = res.data.data;
         vm.list.forEach((item, idx) => {
-          if (item.datas.length == 1) {
-            vm.open.push(idx);
-          }
+          vm.open.push(idx);
         });
       });
     },
