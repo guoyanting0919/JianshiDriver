@@ -35,8 +35,7 @@
                   >{{ despatch.reserveDate | timeFilter }}</span
                 >
                 <span class="carType"
-                  ><i class="fas fa-car-alt"></i
-                  >{{ despatch.carCategoryName }}</span
+                  ><i class="fas fa-car-alt"></i>{{ despatch.carNo }}</span
                 >
                 <span class="passengerNum"
                   ><i class="fas fa-user-friends"></i>搭乘人數
@@ -93,7 +92,10 @@ export default {
   },
   filters: {
     timeFilter(date) {
-      return date.split(" ")[1].slice(0, 5);
+      let time = date.split(" ")[1].slice(0, 5);
+      let day = date.split(" ")[0];
+      let res = `${day} ${time} `;
+      return res;
     },
   },
   methods: {
@@ -111,7 +113,7 @@ export default {
       });
     },
     handleAction(despatchNo) {
-      this.$router.push(`/Mission/Action/${despatchNo}`);
+      this.$router.push(`/History/Detail/${despatchNo}`);
     },
   },
   mounted() {

@@ -8,13 +8,13 @@ const api = {
     return req("post", "check/login", params);
   },
   GetDespatch(params) {
-    return req("get", "despatchOfSelfPayUsers/groupLoad", params);
+    return req("get", "despatchs/groupLoadOfSelfPay", params);
   },
   GetOrder(params) {
     return req("get", "DespatchOfSelfPayUsers/get", params);
   },
   GetDespatchGroup(params) {
-    return req("get", "DespatchOfSelfPayUsers/GetByDespatchNo", params);
+    return req("get", "despatchs/getSelfPayByDespatchNo", params);
   },
   ChangeStatus(params) {
     return req("post", "OrderOfSelfPayUsers/ChangeOrderStatus", params);

@@ -12,7 +12,7 @@
               elevation="2"
               small
               @click="handleAction(item.despatchNo)"
-              >查看</v-btn
+              >開始行程</v-btn
             >
           </div>
         </v-expansion-panel-header>
@@ -36,7 +36,7 @@
                 >
                 <span class="carType"
                   ><i class="fas fa-car-alt"></i
-                  >{{ despatch.carCategoryName }}</span
+                  >{{ despatch.carCategoryName }} / {{ despatch.carNo }}</span
                 >
                 <span class="passengerNum"
                   ><i class="fas fa-user-friends"></i>搭乘人數

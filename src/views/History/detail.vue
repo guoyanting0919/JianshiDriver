@@ -24,7 +24,7 @@
         :value="`tab-${idx + 1}`"
       >
         <!-- 基本資訊卡片 -->
-        <div class="despatchCard" v-if="despatch.status != 5">
+        <div class="despatchCard">
           <div class="cardHeader">
             <div class="userName">
               {{ despatch.userName }}
@@ -58,14 +58,51 @@
         </div>
 
         <!-- 已完成卡片 -->
-        <div v-else class="isComplete">
-          <img
-            class="completeImg"
-            src="../../assets/images/complete.png"
-            alt=""
-          />
-          <h3>辛苦了!</h3>
-          <h3>您已完成此趟任務</h3>
+        <div v-if="despatch.status == 5" class="isComplete">
+          <v-card class="a">
+            <v-card-title class="headline" style="padding-bottom: 0">
+              <p class="dialogTitle">搭乘資料</p>
+            </v-card-title>
+            <v-card-text v-if="list">
+              <v-form
+                :ref="`form${despatch.id}`"
+                v-model="valid"
+                lazy-validation
+              >
+                <div class="dialogBox">
+                  <v-select
+                    autocomplete="off"
+                    label="搭蟲人數"
+                    :rules="requireInput"
+                    disabled
+                    v-model="list[idx].realPassengerNum"
+                    :items="passengerArr"
+                  ></v-select>
+                </div>
+                <div class="dialogBox">
+                  <v-text-field
+                    autocomplete="off"
+                    label="實收車資"
+                    disabled
+                    :rules="requireInput"
+                    v-model="list[idx].realSelfPay"
+                    required
+                  ></v-text-field>
+                </div>
+                <div class="dialogBox">
+                  <v-text-field
+                    label="備註"
+                    disabled
+                    :rules="requireInput"
+                    autocomplete="off"
+                    v-model="list[idx].payRemark"
+                    required
+                  ></v-text-field>
+                </div>
+                <img :src="list[idx].signPic" alt="" />
+              </v-form>
+            </v-card-text>
+          </v-card>
         </div>
 
         <!-- 客上名單 僅已抵達狀態時顯示 -->
@@ -100,7 +137,7 @@
         </v-card>
 
         <!-- 搭乘資料 僅客上狀態時顯示 -->
-        <v-card
+        <!-- <v-card
           class="a"
           v-if="despatch.status == 4 && realTempList[despatch.id]"
         >
@@ -119,21 +156,12 @@
               <div class="dialogBox">
                 <v-select
                   autocomplete="off"
-                  label="搭乘人數"
+                  label="陪同人數"
                   :rules="requireInput"
                   v-model="realTempList[despatch.id].realPassengerNum"
                   :items="passengerArr"
                 ></v-select>
               </div>
-              <!-- <div class="dialogBox">
-                <v-text-field
-                  autocomplete="off"
-                  label="應收車資"
-                  :rules="requireInput"
-                  v-model="realTempList[despatch.id].receivePay"
-                  required
-                ></v-text-field>
-              </div> -->
               <div class="dialogBox">
                 <v-text-field
                   autocomplete="off"
@@ -154,10 +182,10 @@
               </div>
             </v-form>
           </v-card-text>
-        </v-card>
+        </v-card> -->
 
         <!-- drag2 抵達上車地點滑動解鎖 -->
-        <div class="dv" v-show="despatch.status == 2">
+        <!-- <div class="dv" v-show="despatch.status == 2">
           <dragVerify2
             :ref="`dragVerify2${despatch.id}`"
             :width="300"
@@ -178,10 +206,10 @@
               class="fas fa-lock"
             ></i>
           </dragVerify2>
-        </div>
+        </div> -->
 
         <!-- drag3 客上滑動解鎖-->
-        <div class="dv" v-show="despatch.status == 3">
+        <!-- <div class="dv" v-show="despatch.status == 3">
           <dragVerify2
             :ref="`dragVerify3${despatch.id}`"
             :width="300"
@@ -202,10 +230,10 @@
               class="fas fa-lock"
             ></i>
           </dragVerify2>
-        </div>
+        </div> -->
 
         <!-- drag4 完成滑動解鎖-->
-        <div class="dv" v-show="despatch.status == 4">
+        <!-- <div class="dv" v-show="despatch.status == 4">
           <dragVerify2
             :ref="`dragVerify4${despatch.id}`"
             :width="300"
@@ -234,10 +262,10 @@
             elevation="2"
             >簽名</v-btn
           >
-        </div>
+        </div> -->
 
         <!-- drag9 空趟滑動解鎖-->
-        <div style="margin-top: 8px" class="dv" v-show="despatch.status == 3">
+        <!-- <div style="margin-top: 8px" class="dv" v-show="despatch.status == 3">
           <dragVerify2
             :ref="`dragVerify9${despatch.id}`"
             :width="300"
@@ -258,12 +286,12 @@
               class="fas fa-lock"
             ></i>
           </dragVerify2>
-        </div>
+        </div> -->
       </v-tab-item>
     </v-tabs-items>
 
     <!-- 確認空趟dialog -->
-    <v-dialog v-model="cancelDialog" persistent max-width="350">
+    <!-- <v-dialog v-model="cancelDialog" persistent max-width="350">
       <v-card>
         <v-card-title class="headline">
           <p class="dialogTitle">確認空趟？</p>
@@ -279,10 +307,10 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
 
     <!-- 簽名dialog -->
-    <v-dialog v-model="signDialog" max-width="100%">
+    <!-- <v-dialog v-model="signDialog" max-width="100%">
       <v-card>
         <v-card-title class="headline">
           <p class="dialogTitle">簽名</p>
@@ -309,7 +337,7 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </div>
 </template>
 
@@ -660,7 +688,7 @@ export default {
   margin-left: 1rem;
 }
 .isComplete {
-  height: calc(100vh - 152px);
+  height: calc(100vh - 312px);
   width: 100%;
   display: flex;
   align-items: center;
@@ -693,7 +721,7 @@ export default {
 ::v-deep .a.v-sheet.v-card:not(.v-sheet--outlined) {
   box-shadow: 0 0 10px #f38c00;
   border-radius: 8px;
-  max-width: 90%;
+  width: 90%;
   margin: 2rem auto;
 }
 // ::v-deep .drag_verify .dv_handler {

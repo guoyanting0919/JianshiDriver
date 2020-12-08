@@ -81,6 +81,16 @@ const routes = [
     },
   },
   {
+    path: "/History/Detail/:id",
+    name: "Detail",
+    component: () => import("../views/History/detail.vue"),
+    meta: {
+      title: "今日任務-執行中",
+      requireAuth: true,
+      NoNeedHome: false,
+    },
+  },
+  {
     path: "/Contact",
     name: "Contact",
     component: () => import("../views/Contact/index.vue"),
