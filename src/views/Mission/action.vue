@@ -68,11 +68,35 @@
           <h3>您已完成此趟任務</h3>
         </div>
 
+        <!-- drag9 空趟滑動解鎖-->
+        <div style="margin-top: 8px" class="dv" v-show="despatch.status == 3">
+          <dragVerify2
+            :ref="`dragVerify9${despatch.id}`"
+            :width="300"
+            :height="45"
+            :isPassing.sync="despatch.isPassing9"
+            text="空趟  請滑動按鈕"
+            successText="操作成功"
+            completedBg="#ff5656"
+            background="#ff5b5b66"
+            progressBarBg="#ff5656"
+            handlerIcon="fas fa-angle-double-right"
+            successIcon="far fa-check-circle"
+            @passcallback="passcallback9"
+          >
+            <i
+              v-show="!despatch.isPassing9"
+              slot="textBefore"
+              class="fas fa-lock"
+            ></i>
+          </dragVerify2>
+        </div>
+
         <!-- 客上名單 僅已抵達狀態時顯示 -->
         <v-card class="a" v-if="despatch.status == 3">
           <v-card-title class="headline">
             <p class="dialogTitle">
-              請與個案核對身份及目的地，若有問題請聯繫行控中心
+              請與民眾核對身份及目的地，若有問題請聯繫行控中心
             </p>
           </v-card-title>
           <v-card-text>
@@ -234,30 +258,6 @@
             elevation="2"
             >簽名</v-btn
           >
-        </div>
-
-        <!-- drag9 空趟滑動解鎖-->
-        <div style="margin-top: 8px" class="dv" v-show="despatch.status == 3">
-          <dragVerify2
-            :ref="`dragVerify9${despatch.id}`"
-            :width="300"
-            :height="45"
-            :isPassing.sync="despatch.isPassing9"
-            text="空趟  請滑動按鈕"
-            successText="操作成功"
-            completedBg="#ff5656"
-            background="#ff5b5b66"
-            progressBarBg="#ff5656"
-            handlerIcon="fas fa-angle-double-right"
-            successIcon="far fa-check-circle"
-            @passcallback="passcallback9"
-          >
-            <i
-              v-show="!despatch.isPassing9"
-              slot="textBefore"
-              class="fas fa-lock"
-            ></i>
-          </dragVerify2>
         </div>
       </v-tab-item>
     </v-tabs-items>

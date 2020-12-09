@@ -109,7 +109,7 @@
         <v-card class="a" v-if="despatch.status == 3">
           <v-card-title class="headline">
             <p class="dialogTitle">
-              請與個案核對身份及目的地，若有問題請聯繫行控中心
+              請與民眾核對身份及目的地，若有問題請聯繫行控中心
             </p>
           </v-card-title>
           <v-card-text>

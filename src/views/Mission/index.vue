@@ -2,7 +2,7 @@
   <!--  :readonly="i == 1"   :color="i > 2 ? '#ffeedf' : '#fff'" -->
   <div id="Mission">
     <v-expansion-panels v-model="open" multiple>
-      <v-expansion-panel v-for="item in list" :key="item.despatchNo">
+      <v-expansion-panel v-for="item in listData" :key="item.despatchNo">
         <v-expansion-panel-header :hide-actions="true">
           <div class="panelHeader">
             {{ item.despatchNo }}
@@ -91,6 +91,18 @@ export default {
         EndDate: "",
       },
     };
+  },
+  computed: {
+    listData() {
+      let arr = this.list.filter((d) => {
+        let flag = false;
+        d.datas.forEach((o) => {
+          if (o.status == 2 || o.status == 3 || o.status == 4) flag = true;
+        });
+        if (flag) return d;
+      });
+      return arr;
+    },
   },
   filters: {
     timeFilter(date) {
